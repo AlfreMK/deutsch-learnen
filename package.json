@@ -2,6 +2,7 @@
   "name": "deutsch-learnen",
   "type": "module",
   "private": true,
+  "homepage": "https://alfremk.github.io/deutsch-learnen",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
