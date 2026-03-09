@@ -12,6 +12,10 @@ export default defineNuxtConfig({
   ],
   devtools: { enabled: true },
 
+  app: {
+    baseURL: '/deutsch-learnen/',
+  },
+
   build: {
     transpile: ['vuetify'],
   },
