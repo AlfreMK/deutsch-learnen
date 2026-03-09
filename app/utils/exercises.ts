@@ -8,6 +8,29 @@ export type QuizGroup = {
   exercises: QuizExercise[]
 }
 
+// PERSONAL PRONOUNS EXERCISES
+
+const personalPronouns = {
+  'I am': 'ich bin',
+  'you are': 'du bist',
+  'he is': 'er ist',
+  'she is': 'sie ist',
+  'it is': 'es ist',
+  'we are': 'wir sind',
+  'you are (plural)': 'ihr seid',
+  'they are': 'sie sind',
+} as const
+
+const personalPronounsExercises = [
+  {
+    title: 'Personal Pronouns',
+    exercises: Object.entries(personalPronouns).map(([key, value]) => ({
+      title: key,
+      expectedAnswer: value,
+    })),
+  },
+] satisfies QuizGroup[]
+
 // COLOR EXERCISES
 
 const colors = {
@@ -83,6 +106,23 @@ const numbers21to100Exercises = buildNumberList({ start: 21, end: 100 }).map(num
   expectedAnswer: getNumberInDeutsch(number),
 }))
 
+const fractionNumbers = {
+  '1/2': 'ein Halb',
+  '1/3': 'ein Drittel',
+  '1/4': 'ein Viertel',
+  '1/5': 'ein Fünftel',
+  '1/6': 'ein Sechstel',
+  '1/7': 'ein Siebentel',
+  '1/8': 'ein Achtel',
+  '1/9': 'ein Neuntel',
+  '1/10': 'ein Zehntel',
+} as const
+
+const fractionNumbersExercises = Object.entries(fractionNumbers).map(([key, value]) => ({
+  title: key,
+  expectedAnswer: value,
+}))
+
 const numbersExercises = [
   {
     title: 'Numbers 1-10',
@@ -96,12 +136,17 @@ const numbersExercises = [
     title: 'Numbers 21-100',
     exercises: numbers21to100Exercises,
   },
+  {
+    title: 'Fraction Numbers',
+    exercises: fractionNumbersExercises,
+  },
 ] satisfies QuizGroup[]
 
 /**
  * All exercises in the app.
  */
 export const allExercises = [
+  ...personalPronounsExercises,
   ...colorsExercises,
   ...familyMembersExercises,
   ...numbersExercises,

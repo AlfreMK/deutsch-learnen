@@ -18,7 +18,7 @@ export const buildNumberList = ({
 }): number[] => {
   const numbers = Array.from({ length: end - start + 1 }, (_, i) => start + i)
   if (randomize) {
-    return numbers.sort(() => Math.random() - 0.5)
+    return shuffleArray(numbers)
   }
   return numbers
 }

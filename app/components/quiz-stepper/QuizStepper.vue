@@ -28,8 +28,6 @@
             <v-text-field
               v-if="index === currentStep - 1"
               v-model.trim="userAnswers[index]"
-              variant="outlined"
-              density="compact"
               autofocus
               @keyup.enter="nextStep"
             />
@@ -62,44 +60,54 @@
 </template>
 
 <script setup lang="ts">
+import { useShuffledExercises } from './useShuffledExercises'
+
 const props = defineProps<{
-  exercises: QuizExercise[]
+  quizGroup: QuizGroup
+  randomize: boolean
 }>()
 
+const quizGroup = computed(() => props.quizGroup)
+const randomize = computed(() => props.randomize)
+
+const { exercises, reset: resetExercises } = useShuffledExercises({ quizGroup, randomize })
+
 const currentStep = ref(1)
-const isFinalStep = computed(() => currentStep.value === props.exercises.length)
+const isFinalStep = computed(() => currentStep.value === exercises.value.length)
 
-const userAnswers = ref<string[]>(props.exercises.map(() => ''))
+const userAnswers = ref<string[]>(exercises.value.map(() => ''))
 
-const correctByIndex = ref<Record<number, boolean>>({})
+const correctExercisesByIndex = ref<Record<number, boolean>>({})
 
 const showWrongAnswerModal = ref(false)
 const wrongAnswerInfo = ref<{ expected: string } | null>(null)
 const showSuccessModal = ref(false)
 
-watch(() => props.exercises, () => {
+watch(quizGroup, () => {
   resetQuiz()
 })
+
 const resetQuiz = () => {
   showSuccessModal.value = false
   currentStep.value = 1
-  userAnswers.value = props.exercises.map(() => '')
-  correctByIndex.value = {}
+  userAnswers.value = exercises.value.map(() => '')
+  resetExercises()
+  correctExercisesByIndex.value = {}
 }
 
 const score = computed(() =>
-  Object.values(correctByIndex.value).filter(Boolean).length,
+  Object.values(correctExercisesByIndex.value).filter(Boolean).length,
 )
 
 const successSummary = computed(() =>
-  props.exercises.map(q => ({ title: q.title, expectedAnswer: q.expectedAnswer })),
+  exercises.value.map(q => ({ title: q.title, expectedAnswer: q.expectedAnswer })),
 )
 
 function isAnswerCorrect(index: number): boolean {
   const answer = userAnswers.value[index]?.toLowerCase() ?? ''
-  const expected = props.exercises[index]?.expectedAnswer.trim().toLowerCase() ?? ''
+  const expected = exercises.value[index]?.expectedAnswer.trim().toLowerCase() ?? ''
   const correct = answer === expected
-  correctByIndex.value[index] = correct
+  correctExercisesByIndex.value[index] = correct
   return correct
 }
 
@@ -110,7 +118,7 @@ const nextStep = () => {
   }
   const index = currentStep.value - 1
   if (!isAnswerCorrect(index)) {
-    wrongAnswerInfo.value = { expected: props.exercises[index]?.expectedAnswer ?? '' }
+    wrongAnswerInfo.value = { expected: exercises.value[index]?.expectedAnswer ?? '' }
     showWrongAnswerModal.value = true
     return
   }
@@ -120,11 +128,11 @@ const nextStep = () => {
 const finishQuiz = () => {
   const index = currentStep.value - 1
   if (!isAnswerCorrect(index)) {
-    wrongAnswerInfo.value = { expected: props.exercises[index]?.expectedAnswer ?? '' }
+    wrongAnswerInfo.value = { expected: exercises.value[index]?.expectedAnswer ?? '' }
     showWrongAnswerModal.value = true
     return
   }
-  if (score.value === props.exercises.length) {
+  if (score.value === exercises.value.length) {
     showSuccessModal.value = true
   }
 }

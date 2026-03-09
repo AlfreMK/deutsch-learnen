@@ -3,6 +3,7 @@
     :model-value="modelValue"
     title="All correct!"
     confirm-text="Reset quiz"
+    persistent
     @update:model-value="$emit('update:modelValue', $event)"
     @confirm="$emit('reset')"
   >

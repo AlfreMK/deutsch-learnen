@@ -21,6 +21,7 @@
     "vuetify": "~4.0"
   },
   "devDependencies": {
+    "@types/lodash-es": "~4.17",
     "typescript": "~5.9",
     "vite-plugin-vuetify": "~2.1"
   }

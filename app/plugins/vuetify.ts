@@ -9,8 +9,23 @@ export default defineNuxtPlugin((app) => {
       defaultTheme: 'light',
     },
     defaults: {
+      VButton: {
+        density: 'compact',
+        variant: 'outlined',
+      },
       VTextField: {
         autocomplete: 'off',
+        density: 'compact',
+        hideDetails: true,
+        variant: 'outlined',
+      },
+      VSelect: {
+        density: 'compact',
+        variant: 'outlined',
+        hideDetails: true,
+      },
+      VTooltip: {
+        openDelay: 200,
       },
     },
   })
