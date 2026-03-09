@@ -1,5 +1,9 @@
 <script setup lang="ts">
-interface Props {
+import type { VDialog } from 'vuetify/components'
+
+type VDialogProps = InstanceType<typeof VDialog>['$props']
+
+interface Props extends /* @vue-ignore */ VDialogProps {
   title: string
   confirmText?: string
   cancelText?: string
