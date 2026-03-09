@@ -1,17 +1,17 @@
 <template>
   <div class="d-flex flex-column ga-6 pa-4">
-    <QuizStepper :exercises="exercises">
+    <QuizStepper :exercises="quizExercises">
       <template #header="{ resetQuiz }">
         <div class="d-flex ga-2 align-center justify-space-between">
           <h2 class="w-100">
-            🇩🇪 Deutsche Quizze
+            🇩🇪 Deutsch Learnen
           </h2>
           <div class="d-flex pa-2 ga-2 w-100 justify-center">
             <v-select
-              v-model="selectedExercise"
+              v-model="selectedQuiz"
               :items="allExercises"
               density="compact"
-              label="Select Exercise"
+              label="Select Quiz"
               return-object
             />
             <v-btn
@@ -29,9 +29,13 @@
 </template>
 
 <script setup lang="ts">
-const selectedExercise = ref<QuizGroup>(
+const selectedQuiz = ref<QuizGroup>(
   allExercises[0]!,
 )
 
-const exercises = computed(() => selectedExercise.value?.exercises ?? [])
+const quizExercises = computed(() => selectedQuiz.value?.exercises ?? [])
+
+useHead({
+  titleTemplate: 'Deutsch Learnen',
+})
 </script>
