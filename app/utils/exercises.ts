@@ -31,6 +31,27 @@ const personalPronounsExercises = [
   },
 ] satisfies QuizGroup[]
 
+// WEEKDAYS EXERCISES
+const weekdays = {
+  Monday: 'Montag',
+  Tuesday: 'Dienstag',
+  Wednesday: 'Mittwoch',
+  Thursday: 'Donnerstag',
+  Friday: 'Freitag',
+  Saturday: 'Samstag',
+  Sunday: 'Sonntag',
+} as const
+
+const weekdaysExercises = [
+  {
+    title: 'Weekdays',
+    exercises: Object.entries(weekdays).map(([key, value]) => ({
+      title: key,
+      expectedAnswer: value,
+    })),
+  },
+] satisfies QuizGroup[]
+
 // COLOR EXERCISES
 
 const colors = {
@@ -147,6 +168,7 @@ const numbersExercises = [
  */
 export const allExercises = [
   ...personalPronounsExercises,
+  ...weekdaysExercises,
   ...colorsExercises,
   ...familyMembersExercises,
   ...numbersExercises,
