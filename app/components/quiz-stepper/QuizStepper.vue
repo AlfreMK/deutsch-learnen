@@ -38,7 +38,7 @@
 
     <v-stepper-actions
       :next-text="isFinalStep ? 'Finish' : 'Next'"
-      @click:next="() => isFinalStep ? finishQuiz() : nextStep()"
+      @click:next="() => nextStep()"
     >
       <template #prev>
         <div />
@@ -73,6 +73,7 @@ const randomize = computed(() => props.randomize)
 const { exercises, reset: resetExercises } = useShuffledExercises({ quizGroup, randomize })
 
 const currentStep = ref(1)
+const currentExercise = computed(() => exercises.value[currentStep.value - 1])
 const isFinalStep = computed(() => currentStep.value === exercises.value.length)
 
 const userAnswers = ref<string[]>(exercises.value.map(() => ''))
@@ -122,6 +123,7 @@ const nextStep = () => {
     showWrongAnswerModal.value = true
     return
   }
+  speak()
   currentStep.value++
 }
 
@@ -132,6 +134,7 @@ const finishQuiz = () => {
     showWrongAnswerModal.value = true
     return
   }
+  speak()
   if (score.value === exercises.value.length) {
     showSuccessModal.value = true
   }
@@ -147,4 +150,12 @@ function closeSuccessAndReset() {
   showSuccessModal.value = false
   resetQuiz()
 }
+
+const currentExpectedAnswer = computed(() => currentExercise.value?.expectedAnswer.toString() ?? '')
+
+const {
+  speak,
+} = useSpeechSynthesis(currentExpectedAnswer, {
+  lang: 'de-DE',
+})
 </script>
