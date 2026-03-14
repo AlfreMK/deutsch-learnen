@@ -18,14 +18,19 @@
               return-object
               hide-details
             />
-            <v-switch
-              v-model="randomize"
+            <div
               v-tooltip="{
-                text: 'Randomize the exercises order',
+                text: isRandomizeEnforced ? 'Random order is enforced' : 'Randomize the exercises order',
                 location: 'bottom',
               }"
-              hide-details
-            />
+            >
+              <v-switch
+                :model-value="randomize"
+                hide-details
+                :disabled="isRandomizeEnforced"
+                @update:model-value="onRandomizeInputChange"
+              />
+            </div>
             <v-btn
               variant="outlined"
               @click="resetQuiz"
@@ -45,7 +50,17 @@ const selectedQuiz = ref<QuizGroup>(
   allExercises[0]!,
 )
 
-const randomize = ref(false)
+const randomizeInput = ref(false)
+
+const isRandomizeEnforced = computed(() => selectedQuiz.value?.isRandomizeEnforced ?? false)
+
+const randomize = computed(() => isRandomizeEnforced.value ? true : randomizeInput.value)
+
+const onRandomizeInputChange = (value: boolean | null) => {
+  if (!isRandomizeEnforced.value) {
+    randomizeInput.value = value ?? false
+  }
+}
 
 useHead({
   titleTemplate: 'Deutsch Learnen',

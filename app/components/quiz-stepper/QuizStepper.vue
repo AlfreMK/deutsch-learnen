@@ -23,7 +23,7 @@
             class="py-4 d-flex align-center ga-2"
             style="width: 200px; height: 100px;"
           >
-            {{ exercise.title }}
+            {{ exercise.prepend }}
             <!-- We force a re-render of the input to ensure it is focused when the step changes. -->
             <v-text-field
               v-if="index === currentStep - 1"
@@ -31,6 +31,7 @@
               autofocus
               @keyup.enter="nextStep"
             />
+            {{ exercise.append }}
           </div>
         </div>
       </v-stepper-window-item>
@@ -101,7 +102,11 @@ const score = computed(() =>
 )
 
 const successSummary = computed(() =>
-  exercises.value.map(q => ({ title: q.title, expectedAnswer: q.expectedAnswer })),
+  exercises.value.map(q => ({
+    prepend: q.prepend,
+    append: q.append,
+    expectedAnswer: q.expectedAnswer,
+  })),
 )
 
 function isAnswerCorrect(index: number): boolean {
@@ -151,7 +156,9 @@ function closeSuccessAndReset() {
   resetQuiz()
 }
 
-const currentExpectedAnswer = computed(() => currentExercise.value?.expectedAnswer.toString() ?? '')
+const currentExpectedAnswer = computed(() =>
+  currentExercise.value?.voiceText ?? currentExercise.value?.expectedAnswer.toString() ?? '',
+)
 
 const {
   speak,

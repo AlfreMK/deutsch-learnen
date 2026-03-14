@@ -1,11 +1,14 @@
 export type QuizExercise = {
-  title: string | number
+  prepend?: string | number
   expectedAnswer: string
+  append?: string | number
+  voiceText?: string
 }
 
 export type QuizGroup = {
   title: string
   exercises: QuizExercise[]
+  isRandomizeEnforced?: boolean
 }
 
 // PERSONAL PRONOUNS EXERCISES
@@ -25,7 +28,7 @@ const personalPronounsExercises = [
   {
     title: 'Personal Pronouns',
     exercises: Object.entries(personalPronouns).map(([key, value]) => ({
-      title: key,
+      prepend: key,
       expectedAnswer: value,
     })),
   },
@@ -46,7 +49,7 @@ const weekdaysExercises = [
   {
     title: 'Weekdays',
     exercises: Object.entries(weekdays).map(([key, value]) => ({
-      title: key,
+      prepend: key,
       expectedAnswer: value,
     })),
   },
@@ -75,14 +78,13 @@ const colors = {
   'light yellow': 'hellgelb',
   'dark yellow': 'dunkelgelb',
   'light purple': 'helllila',
-
 } as const
 
 const colorsExercises = [
   {
     title: 'Colors',
     exercises: Object.entries(colors).map(([key, value]) => ({
-      title: key,
+      prepend: key,
       expectedAnswer: value,
     })),
   },
@@ -105,7 +107,7 @@ const familyMembersExercises = [
   {
     title: 'Family Members',
     exercises: Object.entries(familyMembers).map(([key, value]) => ({
-      title: key,
+      prepend: key,
       expectedAnswer: value,
     })),
   },
@@ -113,17 +115,17 @@ const familyMembersExercises = [
 
 // NUMBERS EXERCISES
 const numbers1to10Exercises = buildNumberList({ start: 1, end: 10 }).map(number => ({
-  title: number,
+  prepend: number,
   expectedAnswer: getNumberInDeutsch(number),
 }))
 
 const numbers11to20Exercises = buildNumberList({ start: 11, end: 20 }).map(number => ({
-  title: number,
+  prepend: number,
   expectedAnswer: getNumberInDeutsch(number),
 }))
 
 const numbers21to100Exercises = buildNumberList({ start: 21, end: 100 }).map(number => ({
-  title: number,
+  prepend: number,
   expectedAnswer: getNumberInDeutsch(number),
 }))
 
@@ -140,7 +142,7 @@ const fractionNumbers = {
 } as const
 
 const fractionNumbersExercises = Object.entries(fractionNumbers).map(([key, value]) => ({
-  title: key,
+  prepend: key,
   expectedAnswer: value,
 }))
 
@@ -163,6 +165,158 @@ const numbersExercises = [
   },
 ] satisfies QuizGroup[]
 
+// DER, DIE, DAS EXERCISES
+const femenineWords = {
+  // -ei suffix
+  Bäckerei: 'die', // bakery
+  Bücherei: 'die', // library
+  // -in suffix
+  Lehrerin: 'die', // teacher
+  Schülerin: 'die', // student
+  // -keit suffix
+  Ähnlichkeit: 'die', // similarity
+  Möglichkeit: 'die', // possibility
+  // -heit suffix
+  Gesundheit: 'die', // health
+  Freiheit: 'die', // freedom
+  // -schaft suffix
+  Wirtschaft: 'die', // economy
+  Landschaft: 'die', // landscape
+  // -ung suffix
+  Heizung: 'die', // heating
+  Meinung: 'die', // opinion
+  Wohnung: 'die', // apartment
+  // -ette suffix
+  Toilette: 'die', // toilet
+  Zigarette: 'die', // cigarette
+  // -ie suffix
+  Theorie: 'die', // theory
+  Serie: 'die', // series
+  // -ik suffix
+  Musik: 'die', // music
+  Physik: 'die', // physics
+  // -ine suffix
+  Maschine: 'die', // machine
+  Blondine: 'die', // blonde
+  // -ion suffix
+  Kommunikation: 'die', // communication
+  Produktion: 'die', // production
+  // -tät
+  Spezialität: 'die', // specialty
+  Qualität: 'die', // quality
+  // -ur suffix
+  Natur: 'die', // nature
+  Literatur: 'die', // literature
+  // -ade suffix
+  Parade: 'die', // parade
+  Schokolade: 'die', // chocolate
+  // -a suffix
+  Kamera: 'die', // camera
+  Liga: 'die', // league
+  // -sis suffix
+  Dosis: 'die', // dose
+  Skepsis: 'die', // skepticism
+  // -ive suffix
+  Alternative: 'die', // alternative
+  Perspektive: 'die', // perspective
+} as const
+
+const masculineWords = {
+  // -ig suffix
+  Honig: 'der', // honey
+  König: 'der', // king
+  // -ling suffix
+  Zwilling: 'der', // twin
+  Frühling: 'der', // spring
+  // -ent suffix
+  Student: 'der', // student
+  Agent: 'der', // agent
+  // -ier suffix
+  Indoniesier: 'der', // indonesian
+  Juwelier: 'der', // jeweler
+  // -ismus suffix
+  Kapitalismus: 'der', // capitalism
+  Optimismus: 'der', // optimism
+  Kommunismus: 'der', // communism
+  // -ist suffix
+  Buddhist: 'der', // budhist
+  Pianist: 'der', // pianist
+  // -or suffix
+  Motor: 'der', // motor
+  Chor: 'der', // choir
+  // -ör suffix
+  Frisör: 'der', // barber
+  Liköer: 'der', // liqueur
+  // -iker suffix
+  Romantiker: 'der', // romanticist
+  Chemiker: 'der', // chemist
+  // -ast suffix
+  Gast: 'der', // guest
+  Palast: 'der', // palace
+  // -eur suffix
+  Redakteur: 'der', // editor
+  Ingenieur: 'der', // engineer
+} as const
+
+const neuterWords = {
+  // -chen suffix
+  Mädchen: 'das', // girl
+  Fläschen: 'das', // stream
+  // -lein
+  Fräulein: 'das', // young lady
+  Bächlein: 'das', // brook
+  // -tel
+  Hotel: 'das', // hotel
+  Viertel: 'das', // quarter
+  // -tum
+  Eigentum: 'das', // property
+  Datum: 'das', // date
+  // -in
+  Benzin: 'das', // gasoline
+  Bewusstsein: 'das', // consciousness
+  // -o
+  Radio: 'das', // radio
+  Auto: 'das', // car
+  // Infinitiv
+  Lernen: 'das', // learn
+  // -ing
+  Ding: 'das', // thing
+  Meeting: 'das', // meeting
+  // -um
+  Zentrum: 'das', // center
+  Museum: 'das', // museum
+  // -ma
+  Klima: 'das', // climate
+  Drama: 'das', // drama
+  // -ment
+  Element: 'das', // element
+  Experiment: 'das', // experiment
+  // -ett
+  Bett: 'das', // bed
+  Omelett: 'das', // omelette
+  // Ge- prefix
+  Geschlecht: 'das', // gender
+  Gewitter: 'das', // weather
+} as const
+
+const derDieDasExercises = Object.entries({
+  ...femenineWords,
+  ...masculineWords,
+  ...neuterWords,
+}).map(([key, value]) => ({
+  expectedAnswer: value,
+  append: key,
+  voiceText: `${value} ${key}`,
+}))
+
+const derDieDasExercisesGroups = [
+  {
+    title: 'Der, Die, Das',
+    exercises: derDieDasExercises,
+    isRandomizeEnforced: true,
+  },
+] satisfies QuizGroup[]
+
 /**
  * All exercises in the app.
  */
@@ -172,4 +326,5 @@ export const allExercises = [
   ...colorsExercises,
   ...familyMembersExercises,
   ...numbersExercises,
+  ...derDieDasExercisesGroups,
 ] as const satisfies QuizGroup[]
