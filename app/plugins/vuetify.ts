@@ -24,6 +24,11 @@ export default defineNuxtPlugin((app) => {
         variant: 'outlined',
         hideDetails: true,
       },
+      VAutocomplete: {
+        density: 'compact',
+        variant: 'outlined',
+        hideDetails: true,
+      },
       VTooltip: {
         openDelay: 200,
       },

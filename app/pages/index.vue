@@ -10,7 +10,7 @@
             🇩🇪 Deutsch Learnen
           </h2>
           <div class="d-flex pa-2 ga-2 w-100 justify-center align-center">
-            <v-select
+            <v-autocomplete
               v-model="selectedQuiz"
               :items="allExercises"
               density="compact"
