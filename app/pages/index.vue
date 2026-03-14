@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column ga-6 pa-4">
+  <div class="d-flex flex-column ga-6 pa-4 h-100">
     <QuizStepper
       :quiz-group="selectedQuiz"
       :randomize="randomize"
