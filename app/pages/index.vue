@@ -6,7 +6,7 @@
       :seed="seed"
     >
       <template #header="{ resetQuiz }">
-        <div class="d-flex ga-2 align-center justify-space-between">
+        <div class="d-md-flex ga-2 align-center justify-space-between">
           <RandomSeedDialog v-model="seed">
             <template #activator="{ attrs }">
               <h2
@@ -17,7 +17,7 @@
               </h2>
             </template>
           </RandomSeedDialog>
-          <div class="d-flex pa-2 ga-2 w-100 justify-center align-center">
+          <div class="d-md-flex pa-2 ga-2 w-100 justify-center align-center">
             <v-autocomplete
               v-model="selectedQuiz"
               :items="allExercises"
