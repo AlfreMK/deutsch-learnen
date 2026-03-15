@@ -10,6 +10,7 @@
         v-bind="attrs"
         icon="mdi-cog"
         variant="text"
+        density="comfortable"
       />
     </template>
     <v-switch

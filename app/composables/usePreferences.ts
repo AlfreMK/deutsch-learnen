@@ -3,6 +3,7 @@ import { merge, cloneDeep } from 'lodash-es'
 type Preferences = {
   seed: number | undefined
   isSpeechEnabled: boolean
+  randomize: boolean
 }
 
 export const usePreferences = () => {
@@ -15,13 +16,19 @@ export const usePreferences = () => {
 
   const seed = ref<number | undefined>(preferences.value.seed)
   const isSpeechEnabled = ref<boolean>(preferences.value.isSpeechEnabled ?? true)
+  const randomize = ref<boolean>(preferences.value.randomize ?? false)
 
-  watch([seed, isSpeechEnabled], ([seed, isSpeechEnabled]) => {
-    setPreferences({ seed, isSpeechEnabled })
+  watch([seed, isSpeechEnabled, randomize], ([seed, isSpeechEnabled, randomize]) => {
+    setPreferences({
+      seed,
+      isSpeechEnabled,
+      randomize,
+    })
   })
 
   return {
     seed,
     isSpeechEnabled,
+    randomize,
   }
 }

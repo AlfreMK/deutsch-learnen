@@ -42,14 +42,11 @@
 </template>
 
 <script setup lang="ts">
-const { seed, isSpeechEnabled } = usePreferences()
+const { seed, isSpeechEnabled, randomize: randomizeInput } = usePreferences()
 
 const selectedQuiz = ref<QuizGroup>(
   allExercises[0]!,
 )
-
-const randomizeInput = ref(false)
-
 const isRandomizeEnforced = computed(() => selectedQuiz.value?.isRandomizeEnforced ?? false)
 
 const randomize = computed(() => isRandomizeEnforced.value ? true : randomizeInput.value)
