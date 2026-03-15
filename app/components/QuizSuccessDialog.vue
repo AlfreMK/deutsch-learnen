@@ -1,11 +1,10 @@
 <template>
   <StyledConfirmationDialog
-    :model-value="modelValue"
+    v-model="isOpen"
     title="All correct!"
     confirm-text="Reset quiz"
     persistent
-    @update:model-value="$emit('update:modelValue', $event)"
-    @confirm="$emit('reset')"
+    @confirm="emit('reset')"
   >
     <template #title>
       <div class="d-flex align-center ga-2">
@@ -35,7 +34,7 @@
           v-for="(row, i) in summary"
           :key="i"
         >
-          <td>{{ row.title }}</td>
+          <td>{{ row.prepend || row.append }}</td>
           <td>{{ row.expectedAnswer }}</td>
         </tr>
       </tbody>
@@ -45,12 +44,19 @@
 
 <script setup lang="ts">
 defineProps<{
-  modelValue: boolean
   summary: QuizExercise[]
 }>()
 
-defineEmits<{
-  'update:modelValue': [value: boolean]
-  'reset': []
+const emit = defineEmits<{
+  reset: []
 }>()
+
+const isOpen = defineModel<boolean>({ default: false })
+
+onKeyStroke('Enter', () => {
+  if (isOpen.value) {
+    emit('reset')
+    isOpen.value = false
+  }
+})
 </script>
