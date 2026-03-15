@@ -67,6 +67,7 @@ const props = defineProps<{
   quizGroup: QuizGroup
   randomize: boolean
   seed?: number
+  isSpeechEnabled: boolean
 }>()
 
 const quizGroup = computed(() => props.quizGroup)
@@ -165,8 +166,15 @@ const currentExpectedAnswer = computed(() =>
 )
 
 const {
-  speak,
+  speak: _speak,
+  isSupported,
 } = useSpeechSynthesis(currentExpectedAnswer, {
   lang: 'de-DE',
 })
+
+const speak = () => {
+  if (currentExpectedAnswer.value && isSupported.value && props.isSpeechEnabled) {
+    _speak()
+  }
+}
 </script>

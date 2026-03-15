@@ -4,20 +4,21 @@
       :quiz-group="selectedQuiz"
       :randomize="randomize"
       :seed="seed"
+      :is-speech-enabled="isSpeechEnabled"
     >
       <template #header="{ resetQuiz }">
         <div class="d-md-flex ga-2 align-center justify-space-between">
-          <RandomSeedDialog v-model="seed">
-            <template #activator="{ attrs }">
-              <h2
-                v-bind="attrs"
-                class="w-100 cursor-pointer"
-              >
-                🇩🇪 Deutsch Learnen
-              </h2>
-            </template>
-          </RandomSeedDialog>
+          <h2 class="w-100 cursor-pointer">
+            🇩🇪 Deutsch Learnen
+          </h2>
           <div class="d-md-flex pa-2 ga-2 w-100 justify-center align-center">
+            <QuizSettingsDialog
+              v-model:seed="seed"
+              v-model:is-speech-enabled="isSpeechEnabled"
+              :randomize="randomize"
+              :is-randomize-enforced="isRandomizeEnforced"
+              @update:randomize="onRandomizeInputChange"
+            />
             <v-autocomplete
               v-model="selectedQuiz"
               :items="allExercises"
@@ -26,19 +27,6 @@
               return-object
               hide-details
             />
-            <div
-              v-tooltip="{
-                text: isRandomizeEnforced ? 'Random order is enforced' : 'Randomize the exercises order',
-                location: 'bottom',
-              }"
-            >
-              <v-switch
-                :model-value="randomize"
-                hide-details
-                :disabled="isRandomizeEnforced"
-                @update:model-value="onRandomizeInputChange"
-              />
-            </div>
             <v-btn
               variant="outlined"
               @click="resetQuiz"
@@ -54,11 +42,11 @@
 </template>
 
 <script setup lang="ts">
+const { seed, isSpeechEnabled } = usePreferences()
+
 const selectedQuiz = ref<QuizGroup>(
   allExercises[0]!,
 )
-
-const seed = ref<number | undefined>()
 
 const randomizeInput = ref(false)
 

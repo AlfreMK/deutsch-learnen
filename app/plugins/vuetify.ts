@@ -13,6 +13,9 @@ export default defineNuxtPlugin((app) => {
         density: 'compact',
         variant: 'outlined',
       },
+      VSwitch: {
+        color: 'primary',
+      },
       VTextField: {
         autocomplete: 'off',
         density: 'compact',
