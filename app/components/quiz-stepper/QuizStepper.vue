@@ -8,7 +8,7 @@
       <v-stepper-item
         v-for="(_, i) in exercises"
         :key="i"
-        :value="i + 1"
+        :value="i"
       />
     </v-stepper-header>
 
@@ -16,7 +16,7 @@
       <v-stepper-window-item
         v-for="(exercise, index) in exercises"
         :key="index"
-        :value="index + 1"
+        :value="index"
       >
         <div class="d-flex flex-column align-center ga-2">
           <div
@@ -26,7 +26,7 @@
             {{ exercise.prepend }}
             <!-- We force a re-render of the input to ensure it is focused when the step changes. -->
             <v-text-field
-              v-if="index === currentStep - 1"
+              v-if="index === currentStep"
               v-model.trim="userAnswers[index]"
               autofocus
               @keyup.enter="nextStep"
@@ -66,16 +66,17 @@ import { useShuffledExercises } from './useShuffledExercises'
 const props = defineProps<{
   quizGroup: QuizGroup
   randomize: boolean
+  seed?: number
 }>()
 
 const quizGroup = computed(() => props.quizGroup)
 const randomize = computed(() => props.randomize)
+const seed = computed(() => props.seed)
+const { exercises, reset: resetExercises } = useShuffledExercises({ quizGroup, randomize, seed })
 
-const { exercises, reset: resetExercises } = useShuffledExercises({ quizGroup, randomize })
-
-const currentStep = ref(1)
-const currentExercise = computed(() => exercises.value[currentStep.value - 1])
-const isFinalStep = computed(() => currentStep.value === exercises.value.length)
+const currentStep = ref(0)
+const currentExercise = computed(() => exercises.value[currentStep.value])
+const isFinalStep = computed(() => currentStep.value === exercises.value.length - 1)
 
 const userAnswers = ref<string[]>(exercises.value.map(() => ''))
 
@@ -91,7 +92,7 @@ watch(quizGroup, () => {
 
 const resetQuiz = () => {
   showSuccessModal.value = false
-  currentStep.value = 1
+  currentStep.value = 0
   userAnswers.value = exercises.value.map(() => '')
   resetExercises()
   correctExercisesByIndex.value = {}
@@ -118,11 +119,14 @@ function isAnswerCorrect(index: number): boolean {
 }
 
 const nextStep = () => {
+  const index = currentStep.value
+  if (!userAnswers.value[index]) {
+    return
+  }
   if (isFinalStep.value) {
     finishQuiz()
     return
   }
-  const index = currentStep.value - 1
   if (!isAnswerCorrect(index)) {
     wrongAnswerInfo.value = { expected: exercises.value[index]?.expectedAnswer ?? '' }
     showWrongAnswerModal.value = true
@@ -133,7 +137,7 @@ const nextStep = () => {
 }
 
 const finishQuiz = () => {
-  const index = currentStep.value - 1
+  const index = currentStep.value
   if (!isAnswerCorrect(index)) {
     wrongAnswerInfo.value = { expected: exercises.value[index]?.expectedAnswer ?? '' }
     showWrongAnswerModal.value = true

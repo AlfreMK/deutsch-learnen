@@ -19,6 +19,11 @@ export default defineNuxtPlugin((app) => {
         hideDetails: true,
         variant: 'outlined',
       },
+      VNumberInput: {
+        density: 'compact',
+        variant: 'outlined',
+        hideDetails: true,
+      },
       VSelect: {
         density: 'compact',
         variant: 'outlined',

@@ -3,12 +3,20 @@
     <QuizStepper
       :quiz-group="selectedQuiz"
       :randomize="randomize"
+      :seed="seed"
     >
       <template #header="{ resetQuiz }">
         <div class="d-flex ga-2 align-center justify-space-between">
-          <h2 class="w-100">
-            🇩🇪 Deutsch Learnen
-          </h2>
+          <RandomSeedDialog v-model="seed">
+            <template #activator="{ attrs }">
+              <h2
+                v-bind="attrs"
+                class="w-100 cursor-pointer"
+              >
+                🇩🇪 Deutsch Learnen
+              </h2>
+            </template>
+          </RandomSeedDialog>
           <div class="d-flex pa-2 ga-2 w-100 justify-center align-center">
             <v-autocomplete
               v-model="selectedQuiz"
@@ -49,6 +57,8 @@
 const selectedQuiz = ref<QuizGroup>(
   allExercises[0]!,
 )
+
+const seed = ref<number | undefined>()
 
 const randomizeInput = ref(false)
 
