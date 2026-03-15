@@ -12,7 +12,7 @@
             🇩🇪 Deutsch Learnen
           </h2>
           <div class="d-md-flex pa-2 ga-2 w-100 justify-center align-center">
-            <QuizSettingsDialog
+            <SettingsDialog
               v-model:seed="seed"
               v-model:is-speech-enabled="isSpeechEnabled"
               :randomize="randomize"

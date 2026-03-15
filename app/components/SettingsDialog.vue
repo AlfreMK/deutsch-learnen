@@ -3,7 +3,6 @@
     v-model="isOpen"
     title="Settings"
     confirm-text="Close"
-    persistent
     @confirm="isOpen = false"
   >
     <template #activator="{ attrs }">
