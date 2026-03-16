@@ -21,7 +21,7 @@
         <div class="d-flex flex-column align-center ga-2">
           <div
             class="py-4 d-flex align-center ga-2"
-            style="width: 200px; height: 100px;"
+            style="width: 300px; height: 100px;"
           >
             {{ exercise.prepend }}
             <!-- We force a re-render of the input to ensure it is focused when the step changes. -->
