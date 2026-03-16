@@ -246,7 +246,7 @@ const masculineWords = {
   Chor: 'der', // choir
   // -ör suffix
   Frisör: 'der', // barber
-  Liköer: 'der', // liqueur
+  Likör: 'der', // liqueur
   // -iker suffix
   Romantiker: 'der', // romanticist
   Chemiker: 'der', // chemist
