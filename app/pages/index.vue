@@ -11,7 +11,7 @@
           <h2 class="w-100 cursor-pointer">
             🇩🇪 Deutsch Learnen
           </h2>
-          <div class="d-md-flex pa-2 ga-2 w-100 justify-center align-center">
+          <div class="d-flex flex-column d-md-flex-row pa-2 ga-2 w-100 justify-center md-align-center">
             <SettingsDialog
               v-model:seed="seed"
               v-model:is-speech-enabled="isSpeechEnabled"
@@ -67,3 +67,15 @@ useHead({
   titleTemplate: 'Deutsch Learnen',
 })
 </script>
+
+<style scoped>
+@media (width >= 768px) {
+  .d-md-flex-row {
+    flex-direction: row;
+  }
+
+  .md-align-center {
+    align-items: center;
+  }
+}
+</style>
