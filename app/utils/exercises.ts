@@ -294,6 +294,7 @@ const neuterWords = {
   // -ment
   Element: 'das', // element
   Experiment: 'das', // experiment
+  Medikament: 'das', // medication
   // -ett
   Bett: 'das', // bed
   Omelett: 'das', // omelette
@@ -320,6 +321,71 @@ const derDieDasExercisesGroups = [
   },
 ] satisfies QuizGroup[]
 
+const derPlural = {
+  // Masculine ending with -ant, -e, -ent, -ist, or
+  'der Praktikant': 'die Praktikanten',
+  'der Kollege': 'die Kollegen',
+  'der Dirigent': 'die Dirigenten',
+  'der Pianist': 'die Pianisten',
+  'der Direktor': 'die Direktoren',
+  // Femenine ending with -e, -heit, -in, -on, -ik, -keit, -schaft, -tät, -ung
+  'die Tante': 'die Tanten',
+  'die Patientin': 'die Patientinnen',
+  'die Region': 'die Regionen',
+  'die Grafik': 'die Grafiken',
+  'die Kapazität': 'die Kapazitäten',
+  'die Unfähigkeit': 'die Unfähigkeiten',
+  'die Landschaft': 'die Landschaften',
+  'die Übung': 'die Übungen',
+  'die Wahrheit': 'die Wahrheiten',
+  // Irregular plural, ending in -ma, -um, -us.
+  'das Aroma': 'die Aromen',
+  'das Zentrum': 'die Zentren',
+  'der Organismus': 'die Organismen',
+  // Masculine -eur, -ich, -ier, -ig, -ling, -ör
+  'der Masseur': 'die Masseure',
+  'der Ingenieur': 'die Ingenieure',
+  'der Wellensittich': 'die Wellensittiche',
+  'der Pionier': 'die Pioniere',
+  'der König': 'die Könige',
+  'der Ring': 'die Ringe',
+  'der Likör': 'die Liköre',
+  // Femenine monosyllabic words + umlaut
+  'die Maus': 'die Mäuse',
+  'die Hande': 'die Hände',
+  // Neuter monosyllabic words
+  'das Brot': 'die Brote',
+  'das Buch': 'die Bücher',
+  'das Glas': 'die Gläser',
+  'das Haar': 'die Haare',
+  // Sustantives ending in -a, -i, -o, -u, -y
+  'das Sofa': 'die Sofas',
+  'der Bikini': 'die Bikinis',
+  'das Video': 'die Videos',
+  'das Niveau': 'die Niveaus',
+  'das Baby': 'die Babys',
+  // Masculine ending with -el, -er
+  'der Spanier': 'die Spanier',
+  'der Büffel': 'die Büffel',
+  // Neuter ending with -chen, -lein
+  'das Fläschen': 'die Fläschen',
+  'das Fräulein': 'die Fräulein',
+}
+
+const derPluralExercises = Object.entries(derPlural).map(([key, value]) => ({
+  expectedAnswer: value,
+  prepend: key,
+  voiceText: `${value} ${key}`,
+}))
+
+const derPluralExercisesGroups = [
+  {
+    title: 'Der Plural',
+    exercises: derPluralExercises,
+    isRandomizeEnforced: true,
+  },
+] satisfies QuizGroup[]
+
 /**
  * All exercises in the app.
  */
@@ -330,4 +396,5 @@ export const allExercises = [
   ...familyMembersExercises,
   ...numbersExercises,
   ...derDieDasExercisesGroups,
+  ...derPluralExercisesGroups,
 ] as const satisfies QuizGroup[]
