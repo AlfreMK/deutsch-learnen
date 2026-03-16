@@ -9,9 +9,8 @@ export default defineNuxtPlugin((app) => {
       defaultTheme: 'light',
     },
     defaults: {
-      VButton: {
-        density: 'compact',
-        variant: 'outlined',
+      VBtn: {
+        elevation: 0,
       },
       VSwitch: {
         color: 'primary',
