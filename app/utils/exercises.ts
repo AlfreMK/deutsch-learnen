@@ -279,6 +279,9 @@ const neuterWords = {
   Auto: 'das', // car
   // Infinitiv
   Lernen: 'das', // learn
+  Spielen: 'das', // play
+  Arbeiten: 'das', // work
+  Lesen: 'das', // read
   // -ing
   Ding: 'das', // thing
   Meeting: 'das', // meeting
