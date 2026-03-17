@@ -8,7 +8,7 @@
     >
       <template #header="{ resetQuiz }">
         <div class="d-md-flex ga-2 align-center justify-space-between">
-          <h2 class="w-100 cursor-pointer">
+          <h2 class="w-100">
             🇩🇪 Deutsch Learnen
           </h2>
           <div class="d-flex flex-column d-md-flex-row pa-2 ga-2 w-100 justify-center md-align-center">

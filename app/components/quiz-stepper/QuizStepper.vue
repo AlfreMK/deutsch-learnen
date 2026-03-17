@@ -27,7 +27,7 @@
             <!-- We force a re-render of the input to ensure it is focused when the step changes. -->
             <v-text-field
               v-if="index === currentStep"
-              v-model.trim="userAnswers[index]"
+              v-model="userAnswers[index]"
               autofocus
               @keyup.enter="nextStep"
             />
@@ -112,7 +112,7 @@ const successSummary = computed(() =>
 )
 
 function isAnswerCorrect(index: number): boolean {
-  const answer = userAnswers.value[index]?.toLowerCase() ?? ''
+  const answer = userAnswers.value[index]?.trim().toLowerCase() ?? ''
   const expected = exercises.value[index]?.expectedAnswer.trim().toLowerCase() ?? ''
   const correct = answer === expected
   correctExercisesByIndex.value[index] = correct
