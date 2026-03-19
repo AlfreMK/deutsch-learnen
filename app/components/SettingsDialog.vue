@@ -18,6 +18,11 @@
       hide-details
       label="Enable speech"
     />
+    <v-switch
+      v-model="isExtraExercisesEnabled"
+      hide-details
+      label="Show extra exercises"
+    />
     <v-divider />
     <v-switch
       :model-value="randomize"
@@ -57,4 +62,5 @@ const isOpen = ref(false)
 
 const seed = defineModel<number | undefined>('seed', { default: undefined })
 const isSpeechEnabled = defineModel<boolean>('isSpeechEnabled', { default: true })
+const isExtraExercisesEnabled = defineModel<boolean>('isExtraExercisesEnabled', { default: false })
 </script>

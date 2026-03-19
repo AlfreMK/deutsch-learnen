@@ -342,7 +342,7 @@ const derPlural = {
   'das Aroma': 'die Aromen',
   'das Zentrum': 'die Zentren',
   'der Organismus': 'die Organismen',
-  // Masculine -eur, -ich, -ier, -ig, -ling, -ör
+  // Masculine -eur, -ich, -ier, -ig, -ing, -ör
   'der Masseur': 'die Masseure',
   'der Ingenieur': 'die Ingenieure',
   'der Wellensittich': 'die Wellensittiche',
@@ -358,7 +358,7 @@ const derPlural = {
   'das Buch': 'die Bücher',
   'das Glas': 'die Gläser',
   'das Haar': 'die Haare',
-  // Sustantives ending in -a, -i, -o, -u, -y
+  // Nouns ending in -a, -i, -o, -u, -y
   'das Sofa': 'die Sofas',
   'der Bikini': 'die Bikinis',
   'das Video': 'die Videos',
@@ -389,7 +389,7 @@ const derPluralExercisesGroups = [
 /**
  * All exercises in the app.
  */
-export const allExercises = [
+export const DEFAULT_EXERCISES = [
   ...personalPronounsExercises,
   ...weekdaysExercises,
   ...colorsExercises,
@@ -398,3 +398,19 @@ export const allExercises = [
   ...derDieDasExercisesGroups,
   ...derPluralExercisesGroups,
 ] as const satisfies QuizGroup[]
+
+const ALL_EXERCISE_NAMES = new Set(
+  [...DEFAULT_EXERCISES.map(exercise => exercise.title), ...EXTRA_EXERCISES.map(exercise => exercise.title)],
+)
+
+/**
+ * Checks if the quiz title is valid.
+ * @param title - The quiz title to check.
+ * @returns True if the quiz title is valid, false otherwise.
+ */
+export const isQuizTitleValid = (title?: string): title is string => {
+  if (!title) {
+    return false
+  }
+  return ALL_EXERCISE_NAMES.has(title)
+}

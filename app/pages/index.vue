@@ -15,6 +15,7 @@
             <SettingsDialog
               v-model:seed="seed"
               v-model:is-speech-enabled="isSpeechEnabled"
+              v-model:is-extra-exercises-enabled="isExtraExercisesEnabled"
               :randomize="randomize"
               :is-randomize-enforced="isRandomizeEnforced"
               @update:randomize="onRandomizeInputChange"
@@ -42,11 +43,15 @@
 </template>
 
 <script setup lang="ts">
-const { selectedQuizTitle, seed, isSpeechEnabled, randomize: randomizeInput } = usePreferences()
+const { selectedQuizTitle, seed, isSpeechEnabled, randomize: randomizeInput, isExtraExercisesEnabled } = usePreferences()
+
+const allExercises = computed(() => {
+  return isExtraExercisesEnabled.value ? [...DEFAULT_EXERCISES, ...EXTRA_EXERCISES] : DEFAULT_EXERCISES
+})
 
 const selectedQuiz = computed<QuizGroup>({
   get: () => {
-    return allExercises.find(exercise => exercise.title === selectedQuizTitle.value)!
+    return allExercises.value.find(exercise => exercise.title === selectedQuizTitle.value)!
   },
   set: (value: QuizGroup) => {
     selectedQuizTitle.value = value.title
