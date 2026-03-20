@@ -446,6 +446,60 @@ const castlesAndHistoryVocabularyExercisesGroups = [
   },
 ] satisfies QuizGroup[]
 
+// HUMAN EXERCISES
+const humanVocabulary = {
+  'human': 'der Mensch',
+  'man': 'der Mann',
+  'woman': 'die Frau',
+  'boy': 'der Junge',
+  'girl': 'die Mädchen',
+  'child': 'das Kind',
+  'adult': 'der Erwachsene',
+  'elderly': 'der Alte',
+  'baby': 'das Baby',
+  'hair': 'das Haar',
+  'head': 'der Kopf',
+  'ear': 'das Ohr',
+  'forehead': 'die Stirn',
+  'eye': 'das Auge',
+  'eyebrow': 'die Augenbraue',
+  'nose': 'der Nase',
+  'brain': 'der Gehirn',
+  'lip': 'die Lippe',
+  'mouth': 'der Mund',
+  'arm': 'der Arm',
+  'elbow': 'der Ellbogen',
+  'hand': 'die Hand',
+  'chest': 'der Brust',
+  'waist': 'die Taille',
+  '': 'der Bauch',
+  'hip': 'die Hüfte',
+  '': 'der Bauchnabel',
+  '': 'die Schulter',
+  'back': 'der Rücken',
+  '': 'der Po',
+  'leg': 'das Bein',
+  'knee': 'das Knie',
+  'foot': 'der Fuß',
+  'toes': 'die Zehen',
+  'teeth': 'der Zahn',
+  'skeleton': 'der Skelett',
+  'bones': 'der Knochen',
+} as const
+
+const humanVocabularyExercises = Object.entries(humanVocabulary).map(([key, value]) => ({
+  expectedAnswer: value,
+  prepend: key,
+  voiceText: value,
+}))
+
+const humanVocabularyExercisesGroups = [
+  {
+    title: 'Human Vocabulary',
+    exercises: humanVocabularyExercises,
+  },
+] satisfies QuizGroup[]
+
 /**
  * All exercises in the app.
  */
@@ -458,6 +512,7 @@ export const DEFAULT_EXERCISES = [
   ...derDieDasExercisesGroups,
   ...derPluralExercisesGroups,
   ...castlesAndHistoryVocabularyExercisesGroups,
+  ...humanVocabularyExercisesGroups,
 ] as const satisfies QuizGroup[]
 
 const ALL_EXERCISE_NAMES = new Set(
