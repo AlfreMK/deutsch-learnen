@@ -50,7 +50,8 @@
   <WrongAnswerDialog
     v-model="showWrongAnswerModal"
     :correct-answer="wrongAnswerInfo?.expected ?? ''"
-    @reset="closeWrongAnswerModalAndReset"
+    :confirm-text="isEasyModeEnabled ? 'Continue' : 'Reset quiz'"
+    @confirm="closeWrongAnswerModal"
   />
 
   <QuizSuccessDialog
@@ -68,6 +69,7 @@ const props = defineProps<{
   randomize: boolean
   seed?: number
   isSpeechEnabled: boolean
+  isEasyModeEnabled: boolean
 }>()
 
 const emit = defineEmits<{
@@ -155,10 +157,12 @@ const finishQuiz = () => {
   }
 }
 
-function closeWrongAnswerModalAndReset() {
+function closeWrongAnswerModal() {
   showWrongAnswerModal.value = false
   wrongAnswerInfo.value = null
-  resetQuiz()
+  if (!props.isEasyModeEnabled) {
+    resetQuiz()
+  }
 }
 
 function closeSuccessAndReset() {

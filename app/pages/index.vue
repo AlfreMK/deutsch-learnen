@@ -5,7 +5,8 @@
       :randomize="randomize"
       :seed="seed"
       :is-speech-enabled="isSpeechEnabled"
-      @completed="() => addCompletedQuiz(selectedQuiz)"
+      :is-easy-mode-enabled="isEasyModeEnabled"
+      @completed="onCompletedQuiz"
     >
       <template #header="{ resetQuiz }">
         <div class="d-md-flex ga-2 align-center justify-space-between">
@@ -14,6 +15,7 @@
           </h2>
           <div class="d-flex flex-column d-md-flex-row pa-2 ga-2 w-100 justify-center md-align-center">
             <SettingsDialog
+              v-model:is-easy-mode-enabled="isEasyModeEnabled"
               v-model:seed="seed"
               v-model:is-speech-enabled="isSpeechEnabled"
               v-model:is-extra-exercises-enabled="isExtraExercisesEnabled"
@@ -40,13 +42,26 @@
 </template>
 
 <script setup lang="ts">
-const { selectedQuizTitle, seed, isSpeechEnabled, randomize: randomizeInput, isExtraExercisesEnabled } = usePreferences()
+const {
+  selectedQuizTitle,
+  isEasyModeEnabled,
+  seed,
+  isSpeechEnabled,
+  randomize: randomizeInput,
+  isExtraExercisesEnabled,
+} = usePreferences()
 
 const allExercises = computed(() => {
   return isExtraExercisesEnabled.value ? [...DEFAULT_EXERCISES, ...EXTRA_EXERCISES] : DEFAULT_EXERCISES
 })
 
 const { completedQuizzes, addCompletedQuiz } = useCompletedQuizzes()
+
+const onCompletedQuiz = () => {
+  if (!isEasyModeEnabled.value) {
+    addCompletedQuiz(selectedQuiz.value)
+  }
+}
 
 const allExercisesWithCompleted = computed(() => {
   return allExercises.value.map(exercise => ({

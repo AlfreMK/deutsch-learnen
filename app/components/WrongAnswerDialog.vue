@@ -2,9 +2,9 @@
   <StyledConfirmationDialog
     v-model="isOpen"
     title="Wrong answer"
-    confirm-text="Reset quiz"
+    :confirm-text="confirmText"
     persistent
-    @confirm="emit('reset')"
+    @confirm="emit('confirm')"
   >
     <template #title>
       <div class="d-flex align-center ga-2">
@@ -30,17 +30,18 @@
 <script setup lang="ts">
 defineProps<{
   correctAnswer: string
+  confirmText?: string
 }>()
 
 const emit = defineEmits<{
-  reset: []
+  confirm: []
 }>()
 
 const isOpen = defineModel<boolean>({ default: false })
 
 onKeyStroke('Enter', () => {
   if (isOpen.value) {
-    emit('reset')
+    emit('confirm')
     isOpen.value = false
   }
 })

@@ -2,6 +2,7 @@ import { merge, cloneDeep } from 'lodash-es'
 
 type Preferences = {
   selectedQuizTitle: string
+  isEasyModeEnabled: boolean
   seed: number | undefined
   isSpeechEnabled: boolean
   randomize: boolean
@@ -22,6 +23,7 @@ export const usePreferences = () => {
       : DEFAULT_EXERCISES[0]!.title,
   )
 
+  const isEasyModeEnabled = ref<boolean>(preferences.value.isEasyModeEnabled ?? false)
   const seed = ref<number | undefined>(preferences.value.seed)
   const isSpeechEnabled = ref<boolean>(preferences.value.isSpeechEnabled ?? true)
   const randomize = ref<boolean>(preferences.value.randomize ?? false)
@@ -29,12 +31,14 @@ export const usePreferences = () => {
 
   watch([
     selectedQuizTitle,
+    isEasyModeEnabled,
     seed,
     isSpeechEnabled,
     randomize,
     isExtraExercisesEnabled,
   ], ([
     selectedQuizTitle,
+    isEasyModeEnabled,
     seed,
     isSpeechEnabled,
     randomize,
@@ -42,6 +46,7 @@ export const usePreferences = () => {
   ]) => {
     setPreferences({
       selectedQuizTitle,
+      isEasyModeEnabled,
       seed,
       isSpeechEnabled,
       randomize,
@@ -51,6 +56,7 @@ export const usePreferences = () => {
 
   return {
     selectedQuizTitle,
+    isEasyModeEnabled,
     seed,
     isSpeechEnabled,
     randomize,

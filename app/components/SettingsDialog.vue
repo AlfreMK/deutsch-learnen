@@ -14,6 +14,11 @@
       />
     </template>
     <v-switch
+      v-model="isEasyModeEnabled"
+      hide-details
+      label="Easy mode"
+    />
+    <v-switch
       v-model="isSpeechEnabled"
       hide-details
       label="Enable speech"
@@ -63,4 +68,5 @@ const isOpen = ref(false)
 const seed = defineModel<number | undefined>('seed', { default: undefined })
 const isSpeechEnabled = defineModel<boolean>('isSpeechEnabled', { default: true })
 const isExtraExercisesEnabled = defineModel<boolean>('isExtraExercisesEnabled', { default: false })
+const isEasyModeEnabled = defineModel<boolean>('isEasyModeEnabled', { default: false })
 </script>
