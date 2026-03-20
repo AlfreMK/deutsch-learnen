@@ -386,6 +386,66 @@ const derPluralExercisesGroups = [
   },
 ] satisfies QuizGroup[]
 
+// CASTLES / HISTORY VOCABULARY
+const castlesAndHistoryVocabulary = {
+  'castle / lock': 'das Schloss',
+  'king': 'der König',
+  'Bavaria': 'Bayern',
+  'splendor': 'die Pracht',
+  'majestic': 'majestätisch',
+  'Cinderella': 'das Aschenputtel',
+  'fairy tale': 'das Märchen',
+  'legacy': 'das Vermächtnis',
+  'monarchy': 'die Monarchie',
+  'power': 'die Macht',
+  'Prussia': 'Preußen',
+  'era': 'die Ära',
+  'memory': 'die Erinnerung',
+  'deformity': 'die Deformität',
+  'insecurity': 'die Unsicherheit',
+  'birth': 'die Geburt',
+  'bold': 'kühn',
+  'weakness': 'die Schwäche',
+  'passion': 'die Leidenschaft',
+  'tension': 'die Spannung',
+  'chancellor': 'der Kanzler',
+  'World War I': 'der Erste Weltkrieg',
+  'alliance': 'die Allianz',
+  'mental health': 'die geistige Gesundheit',
+  'worry': 'die Sorge',
+  'behavior': 'das Verhalten',
+  'narcissism': 'der Narzissmus',
+  'exile': 'das Exil',
+  'pressure': 'der Druck',
+  'throne': 'der Thron',
+  'Netherlands': 'die Niederlande',
+  'poetry': 'die Poesie',
+  'Austria': 'Österreich',
+  'Middle Ages': 'das Mittelalter',
+  'Alps': 'die Alpen',
+  'history': 'die Geschichte',
+  'panorama': 'das Panorama',
+  'Switzerland': 'die Schweiz',
+  'lake': 'der See',
+  'prison': 'das Gefängnis',
+  'enchanting': 'bezaubernd',
+  'travel destination': 'das Reiseziel',
+  'shore': 'das Ufer',
+} as const
+
+const castlesAndHistoryVocabularyExercises = Object.entries(castlesAndHistoryVocabulary).map(([key, value]) => ({
+  expectedAnswer: value,
+  prepend: key,
+  voiceText: value,
+}))
+
+const castlesAndHistoryVocabularyExercisesGroups = [
+  {
+    title: 'Castles and History Vocabulary',
+    exercises: castlesAndHistoryVocabularyExercises,
+  },
+] satisfies QuizGroup[]
+
 /**
  * All exercises in the app.
  */
@@ -397,6 +457,7 @@ export const DEFAULT_EXERCISES = [
   ...numbersExercises,
   ...derDieDasExercisesGroups,
   ...derPluralExercisesGroups,
+  ...castlesAndHistoryVocabularyExercisesGroups,
 ] as const satisfies QuizGroup[]
 
 const ALL_EXERCISE_NAMES = new Set(
