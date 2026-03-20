@@ -70,6 +70,10 @@ const props = defineProps<{
   isSpeechEnabled: boolean
 }>()
 
+const emit = defineEmits<{
+  (e: 'completed'): void
+}>()
+
 const quizGroup = computed(() => props.quizGroup)
 const randomize = computed(() => props.randomize)
 const seed = computed(() => props.seed)
@@ -147,6 +151,7 @@ const finishQuiz = () => {
   speak()
   if (score.value === exercises.value.length) {
     showSuccessModal.value = true
+    emit('completed')
   }
 }
 

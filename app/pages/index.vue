@@ -5,6 +5,7 @@
       :randomize="randomize"
       :seed="seed"
       :is-speech-enabled="isSpeechEnabled"
+      @completed="() => addCompletedQuiz(selectedQuiz)"
     >
       <template #header="{ resetQuiz }">
         <div class="d-md-flex ga-2 align-center justify-space-between">
@@ -20,13 +21,9 @@
               :is-randomize-enforced="isRandomizeEnforced"
               @update:randomize="onRandomizeInputChange"
             />
-            <v-autocomplete
+            <AutocompleteCheck
               v-model="selectedQuiz"
-              :items="allExercises"
-              density="compact"
-              label="Select Quiz"
-              return-object
-              hide-details
+              :items="allExercisesWithCompleted"
             />
             <v-btn
               variant="outlined"
@@ -47,6 +44,15 @@ const { selectedQuizTitle, seed, isSpeechEnabled, randomize: randomizeInput, isE
 
 const allExercises = computed(() => {
   return isExtraExercisesEnabled.value ? [...DEFAULT_EXERCISES, ...EXTRA_EXERCISES] : DEFAULT_EXERCISES
+})
+
+const { completedQuizzes, addCompletedQuiz } = useCompletedQuizzes()
+
+const allExercisesWithCompleted = computed(() => {
+  return allExercises.value.map(exercise => ({
+    ...exercise,
+    completedAt: completedQuizzes.value[exercise.title],
+  }))
 })
 
 const selectedQuiz = computed<QuizGroup>({
