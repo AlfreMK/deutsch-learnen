@@ -34,6 +34,27 @@ const personalPronounsExercises = [
   },
 ] satisfies QuizGroup[]
 
+const haveExercises = {
+  'I have': 'ich habe',
+  'you have': 'du hast',
+  'he has': 'er hat',
+  'she has': 'sie hat',
+  'it has': 'es hat',
+  'we have': 'wir haben',
+  'you have (plural)': 'ihr habt',
+  'they have': 'sie haben',
+}
+
+const haveExercisesGroups = [
+  {
+    title: 'Have',
+    exercises: Object.entries(haveExercises).map(([key, value]) => ({
+      prepend: key,
+      expectedAnswer: value,
+    })),
+  },
+] satisfies QuizGroup[]
+
 // WEEKDAYS EXERCISES
 const weekdays = {
   Monday: 'Montag',
@@ -505,6 +526,7 @@ const humanVocabularyExercisesGroups = [
  */
 export const DEFAULT_EXERCISES = [
   ...personalPronounsExercises,
+  ...haveExercisesGroups,
   ...weekdaysExercises,
   ...colorsExercises,
   ...familyMembersExercises,
