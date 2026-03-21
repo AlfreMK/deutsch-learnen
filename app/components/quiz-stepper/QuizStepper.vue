@@ -27,6 +27,7 @@
             <!-- We force a re-render of the input to ensure it is focused when the step changes. -->
             <v-text-field
               v-if="index === currentStep"
+              :ref="element => answerInputRef = (element as HTMLInputElement)"
               v-model="userAnswers[index]"
               autofocus
               @keyup.enter="nextStep"
@@ -76,9 +77,13 @@ const emit = defineEmits<{
   (e: 'completed'): void
 }>()
 
+const answerInputRef = ref<HTMLInputElement | undefined>(undefined)
+
 const quizGroup = computed(() => props.quizGroup)
 const randomize = computed(() => props.randomize)
 const seed = computed(() => props.seed)
+const isEasyModeEnabled = computed(() => props.isEasyModeEnabled)
+
 const { exercises, reset: resetExercises } = useShuffledExercises({ quizGroup, randomize, seed })
 
 const currentStep = ref(0)
@@ -95,6 +100,13 @@ const showSuccessModal = ref(false)
 
 watch(quizGroup, () => {
   resetQuiz()
+})
+
+watch(isEasyModeEnabled, (newValue, oldValue) => {
+  const isHardModeEnabled = newValue === false && oldValue === true
+  if (isHardModeEnabled) {
+    resetQuiz()
+  }
 })
 
 const resetQuiz = () => {
@@ -160,7 +172,11 @@ const finishQuiz = () => {
 function closeWrongAnswerModal() {
   showWrongAnswerModal.value = false
   wrongAnswerInfo.value = null
-  if (!props.isEasyModeEnabled) {
+  if (props.isEasyModeEnabled) {
+    userAnswers.value[currentStep.value] = ''
+    answerInputRef.value?.focus()
+  }
+  else {
     resetQuiz()
   }
 }
