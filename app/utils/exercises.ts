@@ -93,7 +93,7 @@ const irregularVerbs = {
   'she falls': 'sie fällt',
   'it falls': 'es fällt',
   'we fall': 'wir fallen',
-  'you fall (plural)': 'ihr fallen',
+  'you fall (plural)': 'ihr fallt',
   'they fall': 'sie fallen',
   // catch
   'I catch': 'ich fang',
@@ -102,7 +102,7 @@ const irregularVerbs = {
   'she catches': 'sie fängt',
   'it catches': 'es fängt',
   'we catch': 'wir fangen',
-  'you catch (plural)': 'ihr fangen',
+  'you catch (plural)': 'ihr fangt',
   'they catch': 'sie fangen',
   // hold
   'I hold': 'ich halte',
@@ -111,7 +111,7 @@ const irregularVerbs = {
   'she holds': 'sie hält',
   'it holds': 'es hält',
   'we hold': 'wir halten',
-  'you hold (plural)': 'ihr halten',
+  'you hold (plural)': 'ihr haltet',
   'they hold': 'sie halten',
   // hit
   'I hit': 'ich schlage',
@@ -120,7 +120,7 @@ const irregularVerbs = {
   'she hits': 'sie schlägt',
   'it hits': 'es schlägt',
   'we hit': 'wir schlagen',
-  'you hit (plural)': 'ihr schlagen',
+  'you hit (plural)': 'ihr schlagt',
   'they hit': 'sie schlagen',
   // give
   'I give': 'ich gebe',
