@@ -55,6 +55,131 @@ const haveExercisesGroups = [
   },
 ] satisfies QuizGroup[]
 
+// Irregular verbs exercises
+const irregularVerbs = {
+  // see
+  'I see': 'ich sehe',
+  'you see': 'du siehst',
+  'he sees': 'er sieht',
+  'she sees': 'sie sieht',
+  'it sees': 'es sieht',
+  'we see': 'wir sehen',
+  'you see (plural)': 'ihr seht',
+  'they see': 'sie sehen',
+  // read
+  'I read': 'ich lese',
+  'you read': 'du liest',
+  'he reads': 'er liest',
+  'she reads': 'sie liest',
+  'it reads': 'es liest',
+  'we read': 'wir lesen',
+  'you read (plural)': 'ihr lest',
+  'they read': 'sie lesen',
+  // happen
+  'it happens': 'es geschieht',
+  // recommend
+  'I recommend': 'ich empfehle',
+  'you recommend': 'du empfiehlst',
+  'he recommends': 'er empfiehlt',
+  'she recommends': 'sie empfiehlt',
+  'it recommends': 'es empfiehlt',
+  'we recommend': 'wir empfehlen',
+  'you recommend (plural)': 'ihr empfehlt',
+  'they recommend': 'sie empfehlen',
+  // fall
+  'I fall': 'ich falle',
+  'you fall': 'du fällst',
+  'he falls': 'er fällt',
+  'she falls': 'sie fällt',
+  'it falls': 'es fällt',
+  'we fall': 'wir fallen',
+  'you fall (plural)': 'ihr fallen',
+  'they fall': 'sie fallen',
+  // catch
+  'I catch': 'ich fang',
+  'you catch': 'du fängst',
+  'he catches': 'er fängt',
+  'she catches': 'sie fängt',
+  'it catches': 'es fängt',
+  'we catch': 'wir fangen',
+  'you catch (plural)': 'ihr fangen',
+  'they catch': 'sie fangen',
+  // hold
+  'I hold': 'ich halte',
+  'you hold': 'du hältst',
+  'he holds': 'er hält',
+  'she holds': 'sie hält',
+  'it holds': 'es hält',
+  'we hold': 'wir halten',
+  'you hold (plural)': 'ihr halten',
+  'they hold': 'sie halten',
+  // hit
+  'I hit': 'ich schlage',
+  'you hit': 'du schlägst',
+  'he hits': 'er schlägt',
+  'she hits': 'sie schlägt',
+  'it hits': 'es schlägt',
+  'we hit': 'wir schlagen',
+  'you hit (plural)': 'ihr schlagen',
+  'they hit': 'sie schlagen',
+  // give
+  'I give': 'ich gebe',
+  'you give': 'du gibst',
+  'he gives': 'er gibt',
+  'she gives': 'sie gibt',
+  'it gives': 'es gibt',
+  'we give': 'wir geben',
+  'you give (plural)': 'ihr gebt',
+  'they give': 'sie geben',
+  // eat
+  'I eat': 'ich esse',
+  'you eat': 'du isst',
+  'he eats': 'er isst',
+  'she eats': 'sie isst',
+  'it eats': 'es isst',
+  'we eat': 'wir essen',
+  'you eat (plural)': 'ihr esst',
+  'they eat': 'sie essen',
+  // help
+  'I help': 'ich helfe',
+  'you help': 'du hilfst',
+  'he helps': 'er hilft',
+  'she helps': 'sie hilft',
+  'it helps': 'es hilft',
+  'we help': 'wir helfen',
+  'you help (plural)': 'ihr helft',
+  'they help': 'sie helfen',
+  // speak
+  'I speak': 'ich spreche',
+  'you speak': 'du sprichst',
+  'he speaks': 'er spricht',
+  'she speaks': 'sie spricht',
+  'it speaks': 'es spricht',
+  'we speak': 'wir sprechen',
+  'you speak (plural)': 'ihr sprecht',
+  'they speak': 'sie sprechen',
+  // run
+  'I run': 'ich laufe',
+  'you run': 'du läufst',
+  'he runs': 'er läuft',
+  'she runs': 'sie läuft',
+  'it runs': 'es läuft',
+  'we run': 'wir laufen',
+  'you run (plural)': 'ihr lauft',
+  'they run': 'sie laufen',
+  // swim
+} as const
+
+const irregularVerbsExercises = [
+  {
+    title: 'Irregular Verbs',
+    exercises: Object.entries(irregularVerbs).map(([key, value]) => ({
+      prepend: key,
+      expectedAnswer: value,
+    })),
+  },
+] satisfies QuizGroup[]
+
 // WEEKDAYS EXERCISES
 const weekdays = {
   Monday: 'Montag',
@@ -493,12 +618,12 @@ const humanVocabulary = {
   'hand': 'die Hand',
   'chest': 'der Brust',
   'waist': 'die Taille',
-  '': 'der Bauch',
+  'stomach': 'der Bauch',
   'hip': 'die Hüfte',
-  '': 'der Bauchnabel',
-  '': 'die Schulter',
+  'belly button': 'der Bauchnabel',
+  'shoulder': 'die Schulter',
   'back': 'der Rücken',
-  '': 'der Po',
+  'butt': 'der Po',
   'leg': 'das Bein',
   'knee': 'das Knie',
   'foot': 'der Fuß',
@@ -527,6 +652,7 @@ const humanVocabularyExercisesGroups = [
 export const DEFAULT_EXERCISES = [
   ...personalPronounsExercises,
   ...haveExercisesGroups,
+  ...irregularVerbsExercises,
   ...weekdaysExercises,
   ...colorsExercises,
   ...familyMembersExercises,
