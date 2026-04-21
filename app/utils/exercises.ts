@@ -646,6 +646,43 @@ const humanVocabularyExercisesGroups = [
   },
 ] satisfies QuizGroup[]
 
+// CLOTHING EXERCISES
+const clothingVocabulary = {
+  'sweater': 'der Pullover',
+  'dress': 'die Kleid',
+  'jeans': 'die Jeans',
+  'shirt (Männer)': 'der Shirt',
+  'shirt (Frauen)': 'die Bluse',
+  'shirt': 'das T-Shirt',
+  'belt': 'der Gürtel',
+  'beanie': 'die Mütze',
+  'hat': 'der Hut',
+  'cap': 'das Käppi',
+  'sock': 'die Socke',
+  'shoe': 'der Schuh',
+  'shoes': 'die Schuhe',
+  'house shoes': 'die Hausschuhe',
+  'umbrella': 'der Regenschirm',
+  'pants': 'die Hose',
+  'shorts': 'die kurze Hose',
+  'jacket': 'die Jacke',
+  'glove': 'der Handschuh',
+  'coat': 'der Mantel',
+} as const
+
+const clothingVocabularyExercises = Object.entries(clothingVocabulary).map(([key, value]) => ({
+  expectedAnswer: value,
+  prepend: key,
+  voiceText: value,
+}))
+
+const clothingVocabularyExercisesGroups = [
+  {
+    title: 'Clothing Vocabulary',
+    exercises: clothingVocabularyExercises,
+  },
+] satisfies QuizGroup[]
+
 /**
  * All exercises in the app.
  */
@@ -661,6 +698,7 @@ export const DEFAULT_EXERCISES = [
   ...derPluralExercisesGroups,
   ...castlesAndHistoryVocabularyExercisesGroups,
   ...humanVocabularyExercisesGroups,
+  ...clothingVocabularyExercisesGroups,
 ] as const satisfies QuizGroup[]
 
 const ALL_EXERCISE_NAMES = new Set(
