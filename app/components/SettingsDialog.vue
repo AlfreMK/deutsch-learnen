@@ -16,19 +16,24 @@
     <v-switch
       v-model="isEasyModeEnabled"
       hide-details
-      label="Easy mode"
+      label="Easy mode. You can continue the quiz even if you answer a question incorrectly."
     />
     <v-switch
       v-model="isSpeechEnabled"
       hide-details
-      label="Enable speech"
+      label="Enable speech."
     />
     <v-switch
       v-model="isExtraExercisesEnabled"
       hide-details
-      label="Show extra exercises"
+      label="Show extra exercises."
     />
     <v-divider />
+    <v-switch
+      v-model="isSortExercisesByDifficultyEnabled"
+      hide-details
+      label="Sort exercises by difficulty. The harder exercises will be at the start of the quiz."
+    />
     <v-switch
       :model-value="randomize"
       hide-details
@@ -55,7 +60,7 @@ interface Props {
   randomize: boolean
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 
 interface Emits {
   (e: 'update:randomize', value: boolean): void
@@ -69,4 +74,16 @@ const seed = defineModel<number | undefined>('seed', { default: undefined })
 const isSpeechEnabled = defineModel<boolean>('isSpeechEnabled', { default: true })
 const isExtraExercisesEnabled = defineModel<boolean>('isExtraExercisesEnabled', { default: false })
 const isEasyModeEnabled = defineModel<boolean>('isEasyModeEnabled', { default: false })
+const isSortExercisesByDifficultyEnabled = defineModel<boolean>('isSortExercisesByDifficultyEnabled', { default: false })
+
+watch(isSortExercisesByDifficultyEnabled, (newValue, oldValue) => {
+  if (newValue === true && oldValue === false) {
+    emit('update:randomize', false)
+  }
+})
+watch(() => props.randomize, (newValue, oldValue) => {
+  if (newValue === true && oldValue === false) {
+    isSortExercisesByDifficultyEnabled.value = false
+  }
+})
 </script>

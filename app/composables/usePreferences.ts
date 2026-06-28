@@ -7,10 +7,11 @@ type Preferences = {
   isSpeechEnabled: boolean
   randomize: boolean
   isExtraExercisesEnabled: boolean
+  isSortExercisesByDifficultyEnabled: boolean
 }
 
 export const usePreferences = () => {
-  const { storageItem: preferences, setStorageItem } = useStorageHandler<Partial<Preferences>>('preferences')
+  const { storageItem: preferences, setStorageItem } = useStorageHandler<Partial<Preferences>>({ customKey: 'preferences' })
 
   const setPreferences = (newPreferences: Partial<Preferences>) => {
     const initialPreferences = cloneDeep(preferences.value)
@@ -28,6 +29,7 @@ export const usePreferences = () => {
   const isSpeechEnabled = ref<boolean>(preferences.value.isSpeechEnabled ?? true)
   const randomize = ref<boolean>(preferences.value.randomize ?? false)
   const isExtraExercisesEnabled = ref<boolean>(preferences.value.isExtraExercisesEnabled ?? false)
+  const isSortExercisesByDifficultyEnabled = ref<boolean>(preferences.value.isSortExercisesByDifficultyEnabled ?? false)
 
   watch([
     selectedQuizTitle,
@@ -36,6 +38,7 @@ export const usePreferences = () => {
     isSpeechEnabled,
     randomize,
     isExtraExercisesEnabled,
+    isSortExercisesByDifficultyEnabled,
   ], ([
     selectedQuizTitle,
     isEasyModeEnabled,
@@ -43,6 +46,7 @@ export const usePreferences = () => {
     isSpeechEnabled,
     randomize,
     isExtraExercisesEnabled,
+    isSortExercisesByDifficultyEnabled,
   ]) => {
     setPreferences({
       selectedQuizTitle,
@@ -51,6 +55,7 @@ export const usePreferences = () => {
       isSpeechEnabled,
       randomize,
       isExtraExercisesEnabled,
+      isSortExercisesByDifficultyEnabled,
     })
   })
 
@@ -61,5 +66,6 @@ export const usePreferences = () => {
     isSpeechEnabled,
     randomize,
     isExtraExercisesEnabled,
+    isSortExercisesByDifficultyEnabled,
   }
 }

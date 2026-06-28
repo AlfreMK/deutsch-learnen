@@ -41,6 +41,11 @@
             />
             {{ exercise.append }}
           </div>
+          <QuizStepperExerciseStats
+            :successes="currentExerciseStat.successes"
+            :fails="currentExerciseStat.fails"
+            @show-stats-chart="showStatsChart = true"
+          />
         </div>
       </v-stepper-window-item>
     </v-stepper-window>
@@ -54,6 +59,18 @@
       </template>
     </v-stepper-actions>
   </v-stepper>
+
+  <StyledConfirmationDialog
+    v-model="showStatsChart"
+    title="Exercise stats"
+    confirm-text="Close"
+    @confirm="showStatsChart = false"
+  >
+    <ExerciseStatsChart
+      :quiz-title="quizGroup.title"
+      :exercises="exercises"
+    />
+  </StyledConfirmationDialog>
 
   <WrongAnswerDialog
     v-model="showWrongAnswerModal"
@@ -70,7 +87,10 @@
 </template>
 
 <script setup lang="ts">
+import { isString } from 'lodash-es'
+import { useWikipediaEnglishTermImage } from '~/composables/queries/wikipediaImage'
 import { useShuffledExercises } from './useShuffledExercises'
+import ExerciseStatsChart from './ExerciseStatsChart.vue'
 
 const props = defineProps<{
   quizGroup: QuizGroup
@@ -78,6 +98,7 @@ const props = defineProps<{
   seed?: number
   isSpeechEnabled: boolean
   isEasyModeEnabled: boolean
+  isSortExercisesByDifficultyEnabled: boolean
 }>()
 
 const emit = defineEmits<{
@@ -90,8 +111,17 @@ const quizGroup = computed(() => props.quizGroup)
 const randomize = computed(() => props.randomize)
 const seed = computed(() => props.seed)
 const isEasyModeEnabled = computed(() => props.isEasyModeEnabled)
+const isSortExercisesByDifficultyEnabled = computed(() => props.isSortExercisesByDifficultyEnabled)
 
-const { exercises, reset: resetExercises } = useShuffledExercises({ quizGroup, randomize, seed })
+const { getStat, getDifficultyScore, recordResult } = useExerciseStats()
+
+const { exercises, reset: resetExercises } = useShuffledExercises({
+  quizGroup,
+  randomize,
+  seed,
+  sortByDifficulty: isSortExercisesByDifficultyEnabled,
+  getDifficultyScore: exercise => getDifficultyScore({ quizTitle: quizGroup.value.title, exerciseKey: getExerciseKey(exercise) }),
+})
 
 const currentStep = ref(0)
 const currentExercise = computed(() => exercises.value[currentStep.value])
@@ -119,6 +149,14 @@ const correctExercisesByIndex = ref<Record<number, boolean>>({})
 const showWrongAnswerModal = ref(false)
 const wrongAnswerInfo = ref<{ expected: string } | null>(null)
 const showSuccessModal = ref(false)
+const showStatsChart = ref(false)
+
+const currentExerciseStat = computed<ExerciseStat>(() => {
+  if (!currentExercise.value) {
+    return { successes: 0, fails: 0 }
+  }
+  return getStat({ quizTitle: quizGroup.value.title, exerciseKey: getExerciseKey(currentExercise.value) })
+})
 
 watch(quizGroup, () => {
   resetQuiz()
@@ -156,6 +194,14 @@ function isAnswerCorrect(index: number): boolean {
   const expected = exercises.value[index]?.expectedAnswer.trim().toLowerCase() ?? ''
   const correct = answer === expected
   correctExercisesByIndex.value[index] = correct
+  const exercise = exercises.value[index]
+  if (exercise) {
+    recordResult({
+      quizTitle: quizGroup.value.title,
+      exerciseKey: getExerciseKey(exercise),
+      isCorrect: correct,
+    })
+  }
   return correct
 }
 

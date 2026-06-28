@@ -6,6 +6,7 @@
       :seed="seed"
       :is-speech-enabled="isSpeechEnabled"
       :is-easy-mode-enabled="isEasyModeEnabled"
+      :is-sort-exercises-by-difficulty-enabled="isSortExercisesByDifficultyEnabled"
       @completed="onCompletedQuiz"
     >
       <template #header="{ resetQuiz }">
@@ -19,6 +20,7 @@
               v-model:seed="seed"
               v-model:is-speech-enabled="isSpeechEnabled"
               v-model:is-extra-exercises-enabled="isExtraExercisesEnabled"
+              v-model:is-sort-exercises-by-difficulty-enabled="isSortExercisesByDifficultyEnabled"
               :randomize="randomize"
               :is-randomize-enforced="isRandomizeEnforced"
               @update:randomize="onRandomizeInputChange"
@@ -49,6 +51,7 @@ const {
   isSpeechEnabled,
   randomize: randomizeInput,
   isExtraExercisesEnabled,
+  isSortExercisesByDifficultyEnabled,
 } = usePreferences()
 
 const allExercises = computed(() => {
@@ -79,7 +82,12 @@ const selectedQuiz = computed<QuizGroup>({
   },
 })
 
-const isRandomizeEnforced = computed(() => selectedQuiz.value?.isRandomizeEnforced ?? false)
+const isRandomizeEnforced = computed(() => {
+  if (isSortExercisesByDifficultyEnabled.value) {
+    return false
+  }
+  return selectedQuiz.value?.isRandomizeEnforced ?? false
+})
 
 const randomize = computed(() => isRandomizeEnforced.value ? true : randomizeInput.value)
 

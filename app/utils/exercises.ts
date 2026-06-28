@@ -12,6 +12,15 @@ export type QuizGroup = {
   isRandomizeEnforced?: boolean
 }
 
+/**
+ * Builds a stable, human-readable key that identifies an exercise within a quiz.
+ * Used as the storage key for per-exercise success/fail stats and as the chart label.
+ */
+export const getExerciseKey = (exercise: QuizExercise): string => {
+  const prompt = exercise.prepend ?? exercise.append ?? ''
+  return `${String(prompt).trim()} → ${exercise.expectedAnswer.trim()}`
+}
+
 // PERSONAL PRONOUNS EXERCISES
 
 const personalPronouns = {
@@ -55,6 +64,9 @@ const haveExercisesGroups = [
     })),
   },
 ] satisfies QuizGroup[]
+
+// TODO: Common regular verbs
+// - 'write': 'schreiben',
 
 // Irregular verbs exercises
 const irregularVerbs = {
