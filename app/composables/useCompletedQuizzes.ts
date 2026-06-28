@@ -5,7 +5,7 @@ type DateCompletion = string
 type CompletedQuizzes = Record<QuizTitle, DateCompletion>
 
 export const useCompletedQuizzes = () => {
-  const { storageItem: completedQuizzes, setStorageItem } = useStorageHandler<CompletedQuizzes>('completedQuizzes')
+  const { storageItem: completedQuizzes, setStorageItem } = useStorageHandler<CompletedQuizzes>({ customKey: 'completedQuizzes' })
 
   const addCompletedQuiz = (quiz: QuizGroup) => {
     const completedQuiz = {

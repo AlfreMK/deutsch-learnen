@@ -19,6 +19,13 @@
         :value="index"
       >
         <div class="d-flex flex-column align-center ga-2">
+          <StyledImage
+            v-if="isImageQueryEnabled && index === currentStep && wikipediaImageUrl"
+            :image-url="wikipediaImageUrl"
+            :alt="englishImageQueryTerm"
+            size="200px"
+            class="rounded"
+          />
           <div
             class="py-4 d-md-flex align-center ga-2"
             style="width: 280px; height: 100px;"
@@ -89,6 +96,21 @@ const { exercises, reset: resetExercises } = useShuffledExercises({ quizGroup, r
 const currentStep = ref(0)
 const currentExercise = computed(() => exercises.value[currentStep.value])
 const isFinalStep = computed(() => currentStep.value === exercises.value.length - 1)
+
+const isImageQueryEnabled = computed(() => currentExercise.value?.isImageQueryEnabled ?? false)
+
+const englishImageQueryTerm = computed(() => {
+  const prepend = currentExercise.value?.prepend
+  if (!isString(prepend)) {
+    return ''
+  }
+  return String(prepend).trim()
+})
+
+const { data: wikipediaImageUrl } = useWikipediaEnglishTermImage({
+  term: englishImageQueryTerm,
+  enabled: isImageQueryEnabled,
+})
 
 const userAnswers = ref<string[]>(exercises.value.map(() => ''))
 

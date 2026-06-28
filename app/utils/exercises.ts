@@ -3,6 +3,7 @@ export type QuizExercise = {
   expectedAnswer: string
   append?: string | number
   voiceText?: string
+  isImageQueryEnabled?: boolean
 }
 
 export type QuizGroup = {
@@ -232,6 +233,7 @@ const colorsExercises = [
     exercises: Object.entries(colors).map(([key, value]) => ({
       prepend: key,
       expectedAnswer: value,
+      isImageQueryEnabled: true,
     })),
   },
 ] satisfies QuizGroup[]
@@ -637,6 +639,7 @@ const humanVocabularyExercises = Object.entries(humanVocabulary).map(([key, valu
   expectedAnswer: value,
   prepend: key,
   voiceText: value,
+  isImageQueryEnabled: true,
 }))
 
 const humanVocabularyExercisesGroups = [
@@ -674,6 +677,7 @@ const clothingVocabularyExercises = Object.entries(clothingVocabulary).map(([key
   expectedAnswer: value,
   prepend: key,
   voiceText: value,
+  isImageQueryEnabled: true,
 }))
 
 const clothingVocabularyExercisesGroups = [

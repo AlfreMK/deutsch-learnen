@@ -12,10 +12,13 @@ const defaultKey = 'deutsch-learnen' as const
  * @param storage - The storage to use, can be `localStorage` or `sessionStorage`. Defaults to `localStorage`.
  * @returns Object with the resource and methods to modify it.
  */
-export const useStorageHandler = <TItem extends StorageItem>(
-  customKey: string,
-  storage: 'local' | 'session' = 'local',
-) => {
+export const useStorageHandler = <TItem extends StorageItem>({
+  customKey,
+  storage = 'local',
+}: {
+  customKey: string
+  storage?: 'local' | 'session'
+}) => {
   const storages = {
     local: localStorage,
     session: sessionStorage,

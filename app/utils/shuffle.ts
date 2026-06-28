@@ -22,9 +22,15 @@ class PseudoRandom {
  * @param seed - The seed for the random number generator.
  * @returns The shuffled array.
  * @example
- * shuffleArray([1, 2, 3, 4, 5]) // [3, 1, 5, 2, 4]
+ * shuffleArray({ array: [1, 2, 3, 4, 5] }) // [3, 1, 5, 2, 4]
  */
-export const shuffleArray = <TItem>(array: readonly TItem[], seed?: number): TItem[] => {
+export const shuffleArray = <TItem>({
+  array,
+  seed,
+}: {
+  array: readonly TItem[]
+  seed?: number
+}): TItem[] => {
   const pseudoRandom = new PseudoRandom(seed)
   return Array.from(cloneDeep(array)).sort(() => pseudoRandom.random() - 0.5)
 }
