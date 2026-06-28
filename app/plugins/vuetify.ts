@@ -2,11 +2,15 @@ import '@mdi/font/css/materialdesignicons.css'
 
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
+import { lightTheme } from '~/vuetify.options'
 
 export default defineNuxtPlugin((app) => {
   const vuetify = createVuetify({
     theme: {
       defaultTheme: 'light',
+      themes: {
+        light: lightTheme,
+      },
     },
     defaults: {
       VBtn: {
