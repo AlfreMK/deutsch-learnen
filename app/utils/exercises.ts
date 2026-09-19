@@ -699,6 +699,77 @@ const clothingVocabularyExercisesGroups = [
   },
 ] satisfies QuizGroup[]
 
+const houseVocabularyExercises = {
+  'corredor': 'der Flur',
+  'entrada': 'der Eingangsbereich',
+  'escalera': 'die Treppe',
+  'lampara': 'die Lampe',
+  'pared': 'die Wand',
+  'cocina': 'die Küche',
+  'refrigerador': 'der Kühlschrank',
+  'congelador': 'der Gefrierschrank',
+  'horno': 'der Ofen',
+  'estufa': 'der Herd',
+  'sartén': 'die Pfanne',
+  'escoba': 'der Besen',
+  'plato': 'der Teller',
+  'bowl': 'die Schüssel',
+  'grifo de agua': 'der Wasserhahn',
+  'lavabo': 'das Waschbecken',
+  'vaso': 'das Glas',
+  'taza': 'die Tasse',
+  'plato de té': 'die Untertasse',
+  'enchufe': 'die Steckdose',
+  'licuadora': 'der Standmixer',
+  'miel': 'der Honig',
+  'cubierto': 'das Besteck',
+  'cuchara': 'der Löffel',
+  'tenedor': 'die Gabel',
+  'cuchillo': 'das Messer',
+  'olla': 'der Topf',
+  'tetera': 'die Teekanne',
+  'microondas': 'die Mikrowelle',
+  'sal': 'das Salz',
+  'ventana': 'das Fenster',
+  'sofá': 'die Couch',
+  'alfombra': 'der Teppich',
+  'mesa de comedor': 'der Esstisch',
+  'sofá individual': 'der Sessel',
+  'cuadro de arte': 'das Bild',
+  'televisor': 'der Fernseher',
+  'control remoto': 'die Fernbedienung',
+  'planta': 'die Pflanze',
+  'persiana': 'die Jalousie',
+  'cortina': 'die Gardine',
+  'almohada': 'das Kissen',
+  'reloj de pared': 'die Wanduhr',
+  'armario': 'der Schrank',
+  'florero': 'die Vase',
+  'espejo': 'der Spiegel',
+  'despertador': 'der Wecker',
+  'vela': 'die Kerze',
+  'baño': 'das Badezimmer',
+  'ducha': 'die Dusche',
+  'bañera': 'die Badewanne',
+  'toalla': 'das Handtuch',
+  'papel higiénico': 'das Klopapier',
+  'cepillo de dientes': 'die Zahnbürste',
+  'pasta de dientes': 'die Zahnpasta',
+  'peine': 'der Kamm',
+  'secador de pelo': 'der Fön',
+} as const
+
+const houseVocabularyExercisesGroups = [
+  {
+    title: 'House Vocabulary',
+    exercises: Object.entries(houseVocabularyExercises).map(([key, value]) => ({
+      expectedAnswer: value,
+      prepend: key,
+      voiceText: value,
+    })),
+  },
+] satisfies QuizGroup[]
+
 /**
  * All exercises in the app.
  */
@@ -715,6 +786,7 @@ export const DEFAULT_EXERCISES = [
   ...castlesAndHistoryVocabularyExercisesGroups,
   ...humanVocabularyExercisesGroups,
   ...clothingVocabularyExercisesGroups,
+  ...houseVocabularyExercisesGroups,
 ] as const satisfies QuizGroup[]
 
 const ALL_EXERCISE_NAMES = new Set(
