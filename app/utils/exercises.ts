@@ -109,7 +109,7 @@ const irregularVerbs = {
   'you fall (plural)': 'ihr fallt',
   'they fall': 'sie fallen',
   // catch
-  'I catch': 'ich fang',
+  'I catch': 'ich fange',
   'you catch': 'du fängst',
   'he catches': 'er fängt',
   'she catches': 'sie fängt',
@@ -252,15 +252,17 @@ const colorsExercises = [
 
 // FAMILY EXERCISES
 const familyMembers = {
-  'cousin': 'neffe',
-  'niece': 'nichte',
-  'brother-in-law': 'schwager',
-  'sister-in-law': 'schwagerin',
-  'son-in-law': 'schwiegersohn',
-  'daughter-in-law': 'schwiegertochter',
-  'sibling': 'geschwister',
-  'brothers': 'brüder',
-  'sisters': 'schwestern',
+  'cousin (male)': 'der Cousin',
+  'cousin (female)': 'die Cousine',
+  'nephew': 'der Neffe',
+  'niece': 'die Nichte',
+  'brother-in-law': 'der Schwager',
+  'sister-in-law': 'die Schwägerin',
+  'son-in-law': 'der Schwiegersohn',
+  'daughter-in-law': 'die Schwiegertochter',
+  'siblings': 'die Geschwister',
+  'brothers': 'die Brüder',
+  'sisters': 'die Schwestern',
 } as const
 
 const familyMembersExercises = [
@@ -290,7 +292,7 @@ const numbers21to100Exercises = buildNumberList({ start: 21, end: 100 }).map(num
 }))
 
 const fractionNumbers = {
-  '1/2': 'ein Halb',
+  '1/2': 'einhalb',
   '1/3': 'ein Drittel',
   '1/4': 'ein Viertel',
   '1/5': 'ein Fünftel',
@@ -392,7 +394,7 @@ const masculineWords = {
   Student: 'der', // student
   Agent: 'der', // agent
   // -ier suffix
-  Indoniesier: 'der', // indonesian
+  Indonesier: 'der', // indonesian
   Juwelier: 'der', // jeweler
   // -ismus suffix
   Kapitalismus: 'der', // capitalism
@@ -421,7 +423,7 @@ const masculineWords = {
 const neuterWords = {
   // -chen suffix
   Mädchen: 'das', // girl
-  Fläschen: 'das', // stream
+  Fläschen: 'das', // little bottle
   // -lein
   Fräulein: 'das', // young lady
   Bächlein: 'das', // brook
@@ -460,7 +462,7 @@ const neuterWords = {
   Omelett: 'das', // omelette
   // Ge- prefix
   Geschlecht: 'das', // gender
-  Gewitter: 'das', // weather
+  Gewitter: 'das', // thunderstorm
 } as const
 
 const derDieDasExercises = Object.entries({
@@ -512,7 +514,7 @@ const derPlural = {
   'der Likör': 'die Liköre',
   // Femenine monosyllabic words + umlaut
   'die Maus': 'die Mäuse',
-  'die Hande': 'die Hände',
+  'die Hand': 'die Hände',
   // Neuter monosyllabic words
   'das Brot': 'die Brote',
   'das Buch': 'die Bücher',
@@ -612,7 +614,7 @@ const humanVocabulary = {
   'man': 'der Mann',
   'woman': 'die Frau',
   'boy': 'der Junge',
-  'girl': 'die Mädchen',
+  'girl': 'das Mädchen',
   'child': 'das Kind',
   'adult': 'der Erwachsene',
   'elderly': 'der Alte',
@@ -623,14 +625,14 @@ const humanVocabulary = {
   'forehead': 'die Stirn',
   'eye': 'das Auge',
   'eyebrow': 'die Augenbraue',
-  'nose': 'der Nase',
-  'brain': 'der Gehirn',
+  'nose': 'die Nase',
+  'brain': 'das Gehirn',
   'lip': 'die Lippe',
   'mouth': 'der Mund',
   'arm': 'der Arm',
-  'elbow': 'der Ellbogen',
+  'elbow': 'der Ellenbogen',
   'hand': 'die Hand',
-  'chest': 'der Brust',
+  'chest': 'die Brust',
   'waist': 'die Taille',
   'stomach': 'der Bauch',
   'hip': 'die Hüfte',
@@ -642,9 +644,11 @@ const humanVocabulary = {
   'knee': 'das Knie',
   'foot': 'der Fuß',
   'toes': 'die Zehen',
-  'teeth': 'der Zahn',
-  'skeleton': 'der Skelett',
-  'bones': 'der Knochen',
+  'tooth': 'der Zahn',
+  'teeth': 'die Zähne',
+  'skeleton': 'das Skelett',
+  'bone': 'der Knochen',
+  'bones': 'die Knochen',
 } as const
 
 const humanVocabularyExercises = Object.entries(humanVocabulary).map(([key, value]) => ({
@@ -664,11 +668,11 @@ const humanVocabularyExercisesGroups = [
 // CLOTHING EXERCISES
 const clothingVocabulary = {
   'sweater': 'der Pullover',
-  'dress': 'die Kleid',
+  'dress': 'das Kleid',
   'jeans': 'die Jeans',
-  'shirt (Männer)': 'der Shirt',
+  'shirt (Männer)': 'das Hemd',
   'shirt (Frauen)': 'die Bluse',
-  'shirt': 'das T-Shirt',
+  'T-shirt': 'das T-Shirt',
   'belt': 'der Gürtel',
   'beanie': 'die Mütze',
   'hat': 'der Hut',
